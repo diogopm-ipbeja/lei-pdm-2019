@@ -15,7 +15,7 @@ public class SecondActivity extends AppCompatActivity {
         TextView numberLabel = findViewById(R.id.number);
         TextView textLabel = findViewById(R.id.text_field);
 
-        // TODO Recolher os valores enviados no Intent e colocá-los nas TextViews
+        // TODO Ex 1.2) Recolher os valores enviados no Intent e colocá-los nas TextViews
 
 
     }

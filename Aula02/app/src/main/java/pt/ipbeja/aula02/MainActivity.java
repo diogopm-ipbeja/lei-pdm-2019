@@ -22,16 +22,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // 1) Encontrar as Views definidas no layout (só podemos fazer isto depois de #setContentView)
-
-        this.textField = findViewById(R.id.text_field);
+        this.textField = findViewById(R.id.text_field); // Utilizamos o id definido no layout (R.id.XPTO)
         this.counterLabel = findViewById(R.id.counter);
 
-        Button incBtn = findViewById(R.id.increment_btn);
-        Button decBtn = findViewById(R.id.decrement_btn);
-        Button launchBtn = findViewById(R.id.launch);
+        Button incrementBtn = findViewById(R.id.increment_btn);
+        Button decrementBtn = findViewById(R.id.decrement_btn);
+        Button launchNextActivityBtn = findViewById(R.id.next_btn);
 
         // 2) Atribuir OnClickListeners aos Buttons
-        incBtn.setOnClickListener(new View.OnClickListener() {
+        incrementBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Quando o utilizador carrega no botão, incrementamos o contador
@@ -41,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        decBtn.setOnClickListener(new View.OnClickListener() {
+        decrementBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 counter--;
@@ -50,18 +49,19 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        launchBtn.setOnClickListener(new View.OnClickListener() {
+        launchNextActivityBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Quando o utilizador carrega no botão, vamos lançar a SecondActivity
 
-                // Criamos um Intent (uma mensagem ao sistema operativo) a dizer esta Activity quer lançar a SecondActivity
+                // Criamos um Intent (uma mensagem) a dizer que esta Activity quer lançar a SecondActivity
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
 
-                // TODO Sugestão: Enviar o texto da EditText e o valor do counter para a SecondActivity
+                // TODO Sugestão: Ex 1.1) Tente enviar o texto da EditText e o valor do counter para a SecondActivity (ver parte 2 em SecondActivity) - Ver https://developer.android.com/training/basics/firstapp/starting-activity
                 String text = textField.getText().toString();
 
                 // Quando o Intent estiver configurado, podemos lançar a SecondActivity com o intent
+                // O Android tratará de instanciar e exibir a SecondActivity
                 startActivity(intent);
             }
         });
