@@ -6,17 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    // É aconselhável criar constantes para os códigos de pedido (ver #onActivityResult)
     private static final int FORM_REQUEST_CODE = 1000;
 
     private TextView name;
     private TextView studentNr;
-    private Button editBtn;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,40 +24,44 @@ public class MainActivity extends AppCompatActivity {
         this.name = findViewById(R.id.name);
         this.studentNr = findViewById(R.id.student_nr);
 
-        this.editBtn = findViewById(R.id.edit_btn);
-
     }
 
+    /**
+     * Método de callback do Button (ver atributo onClick em activity_main.xml)
+     * @param view A View que foi pressionada (neste caso é o Button)
+     */
     public void onEditClicked(View view) {
         Intent intent = new Intent(this, FormActivity.class);
-        String name = this.name.getText().toString();
-        String text = this.studentNr.getText().toString();
-
-        int number = 0;
-        if(!text.isEmpty()) {
-            number = Integer.parseInt(text);
-        }
-
-        intent.putExtra(FormActivity.NAME_FIELD, name);
-        intent.putExtra(FormActivity.STUDENT_NR_FIELD, number);
-
         startActivityForResult(intent, FORM_REQUEST_CODE);
+
+        // TODO Ex) Se este é um botão de edição, então deve enviar os dados que já existem à
+        //  FormActivity. Leia os dados que estão nas TextViews, envie-os à FormActivity e esta deve
+        //  colocá-los nas suas EditTexts
     }
 
 
+    /**
+     * Este método é invocado quando uma Activity que foi lançada com startActivityForResult termina
+     * @param requestCode Identificador do pedido (o número que definimos quando lançámos a Activity)
+     * @param resultCode Resultado OK (-1) ou cancelado (0). Ver constantes RESULT_OK, RESULT_CANCELED
+     * @param data O Intent com os dados (se existirem) que a Activity devolveu
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+
+        // Usamos o resultCode e requestCode para filtrar o tipo de acção
+        // Ter bastante atenção para não confundir os dois e fazer comparações erradas
         if(resultCode == RESULT_OK) {
-            
+            // Se o resultado está OK e o código é o que estamos à espera...
             if(requestCode == FORM_REQUEST_CODE) {
 
                 if(data != null) {
-
-                    int studentNr = data.getIntExtra(FormActivity.STUDENT_NR_FIELD, 0);
-                    String studentName = data.getStringExtra(FormActivity.NAME_FIELD);
-
+                    // Obtemos os extras
+                    int studentNr = data.getIntExtra(FormActivity.STUDENT_NR_EXTRA, 0);
+                    String studentName = data.getStringExtra(FormActivity.NAME_EXTRA);
+                    // E colocamos as Strings nas TextViews
                     this.name.setText(studentName);
                     this.studentNr.setText(studentNr + "");
                 }
