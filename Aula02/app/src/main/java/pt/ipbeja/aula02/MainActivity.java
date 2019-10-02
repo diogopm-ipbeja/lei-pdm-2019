@@ -57,8 +57,11 @@ public class MainActivity extends AppCompatActivity {
                 // Criamos um Intent (uma mensagem) a dizer que esta Activity quer lançar a SecondActivity
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
 
-                // TODO Sugestão: Ex 1.1) Tente enviar o texto da EditText e o valor do counter para a SecondActivity (ver parte 2 em SecondActivity) - Ver https://developer.android.com/training/basics/firstapp/starting-activity
                 String text = textField.getText().toString();
+
+                intent.putExtra(SecondActivity.COUNTER_KEY, counter);
+                intent.putExtra(SecondActivity.TEXT_KEY, text);
+
 
                 // Quando o Intent estiver configurado, podemos lançar a SecondActivity com o intent
                 // O Android tratará de instanciar e exibir a SecondActivity

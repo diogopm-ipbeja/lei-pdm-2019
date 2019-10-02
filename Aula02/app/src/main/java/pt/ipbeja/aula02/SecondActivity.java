@@ -2,10 +2,15 @@ package pt.ipbeja.aula02;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
 public class SecondActivity extends AppCompatActivity {
+
+    public static String COUNTER_KEY = "counter";
+    public static String TEXT_KEY = "text";
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,7 +20,12 @@ public class SecondActivity extends AppCompatActivity {
         TextView numberLabel = findViewById(R.id.number);
         TextView textLabel = findViewById(R.id.text_field);
 
-        // TODO Ex 1.2) Recolher os valores enviados no Intent e colocá-los nas TextViews
+        Intent intent = getIntent();
+        int counter = intent.getIntExtra(COUNTER_KEY, 0);
+        String text = intent.getStringExtra(TEXT_KEY);
+
+        numberLabel.setText(counter + "");
+        textLabel.setText(text);
 
 
     }
