@@ -4,17 +4,24 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.provider.MediaStore;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     // É aconselhável criar constantes para os códigos de pedido (ver #onActivityResult)
     private static final int FORM_REQUEST_CODE = 1000;
+    private static final int CAMERA_REQUEST_CODE = 2000;
 
     private TextView name;
     private TextView studentNr;
+
+    private ImageView photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.name = findViewById(R.id.name);
         this.studentNr = findViewById(R.id.student_nr);
+        this.photo = findViewById(R.id.photo);
 
     }
 
@@ -32,11 +40,15 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onEditClicked(View view) {
         Intent intent = new Intent(this, FormActivity.class);
+
+        intent.putExtra(FormActivity.NAME_EXTRA, name.getText().toString());
+        String studentNrText = studentNr.getText().toString();
+        if(!studentNrText.isEmpty()) {
+            intent.putExtra(FormActivity.STUDENT_NR_EXTRA, Integer.parseInt(studentNrText));
+        }
+
         startActivityForResult(intent, FORM_REQUEST_CODE);
 
-        // TODO Ex) Se este é um botão de edição, então deve enviar os dados que já existem à
-        //  FormActivity. Leia os dados que estão nas TextViews, envie-os à FormActivity e esta deve
-        //  colocá-los nas suas EditTexts
     }
 
 
@@ -66,9 +78,24 @@ public class MainActivity extends AppCompatActivity {
                     this.studentNr.setText(studentNr + "");
                 }
             }
+            else if(requestCode == CAMERA_REQUEST_CODE) {
+
+                if(data != null) {
+                    Bitmap thumbnail = data.getParcelableExtra("data");
+                    this.photo.setImageBitmap(thumbnail);
+
+                }
+
+            }
         }
 
 
+
+    }
+
+    public void takePhoto(View view) {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
 
     }
 }
