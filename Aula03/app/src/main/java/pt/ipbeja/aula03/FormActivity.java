@@ -21,6 +21,7 @@ public class FormActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "Lifecycle onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
 

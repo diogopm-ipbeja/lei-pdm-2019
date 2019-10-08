@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "Lifecycle onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -35,6 +36,12 @@ public class MainActivity extends AppCompatActivity {
         this.studentNr = findViewById(R.id.student_nr);
         this.photo = findViewById(R.id.photo);
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d(TAG, "Lifecycle onRestart");
     }
 
     @Override
@@ -93,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        Log.d(TAG, "Lifecycle onActivityResult");
         super.onActivityResult(requestCode, resultCode, data);
 
 

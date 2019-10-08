@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:gravity="center">
 
 
-
-    <!-- TODO Adicionar RecyclerView aqui -->
-
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_contact_btn"
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="24dp"
-        android:src="@drawable/ic_person_add_black_24dp"
-        android:tint="@android:color/white"
-        app:fabSize="normal"
-        app:layout_anchorGravity="bottom|right|end" />
+        android:text="Awful List"
+        android:onClick="onAwfulListClicked"
+        />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contact List"
+        android:onClick="onContactListClicked"/>
+
+
+
+</LinearLayout>
+
