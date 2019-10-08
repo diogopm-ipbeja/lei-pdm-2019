@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -37,7 +38,8 @@ public class ContactDataSource {
             "Dennis",
             "Debby",
             "Erin",
-            "Edouard"};
+            "Edouard"
+    };
 
 
     private static final String[] LAST_NAMES = new String[]{
@@ -73,35 +75,29 @@ public class ContactDataSource {
             "Baker",
             "Baldwin",
             "Ball",
-            "Ballard"};
+            "Ballard"
+    };
 
 
     private static final int INITIAL_CONTACTS = 50;
     private static List<Contact> contacts = new ArrayList<>();
 
-    static { contacts.addAll(createContacts(INITIAL_CONTACTS)); }
+    static {
+        contacts.addAll(createContacts());
+    }
 
-
-    @SuppressLint("DefaultLocale")
-    private static List<Contact> createContacts(int count) {
+    private static List<Contact> createContacts() {
         ArrayList<Contact> contacts = new ArrayList<>();
 
-        for (int i = 0; i < count; i++) {
-            long id = (long) (Math.random() * 10000 + 1);
-            String firstName = randomFirstName();
-            String lastName = randomLastName();
-            Contact contact = new Contact(
-                    id,
-                    firstName,
-                    lastName,
-                    (int) (Math.random() * 50 + 18),
-                    String.format("%s.%s.%d@dummy.pt", firstName.toLowerCase(), lastName.toLowerCase(), id)
-            );
+        for (int i = 0; i < INITIAL_CONTACTS; i++) {
+            Contact contact = createRandomContact();
             contacts.add(contact);
         }
 
         return contacts;
     }
+
+
 
     private static String randomFirstName() {
         return FIRST_NAMES[(int) (Math.random() * FIRST_NAMES.length)];
@@ -112,12 +108,24 @@ public class ContactDataSource {
     }
 
 
+    public static Contact createRandomContact() {
+        long id = (long) (Math.random() * 10000 + 1);
+        String firstName = randomFirstName();
+        String lastName = randomLastName();
+        String email = String.format(Locale.getDefault(), "%s.%s.%d@dummy.pt", firstName.toLowerCase(), lastName.toLowerCase(), id);  // "first.second.12345@dummy.pt"
+        return new Contact(id, firstName, lastName, email);
+    }
+
+
+    // ---------------------------------------------------------------------------------------//
+
 
 
 
 
     /**
      * Get all contacts in Database
+     *
      * @return List of all contacts
      */
     public static List<Contact> getContacts() {
@@ -127,6 +135,7 @@ public class ContactDataSource {
 
     /**
      * Find a Contact by its ID
+     *
      * @param id the unique identifier
      * @return The contact if it exists, null if it doesn't
      */
@@ -139,6 +148,7 @@ public class ContactDataSource {
 
     /**
      * Inserts a contact in the database
+     *
      * @param contact The contact
      * @return True if operation was successful
      */
@@ -153,6 +163,7 @@ public class ContactDataSource {
 
     /**
      * Updates a contact in the database
+     *
      * @param contact The contact
      * @return True if operation was successful
      */
@@ -167,6 +178,7 @@ public class ContactDataSource {
 
     /**
      * Deletes a contact from the database
+     *
      * @param contact The contact
      * @return True if operation was successful
      */

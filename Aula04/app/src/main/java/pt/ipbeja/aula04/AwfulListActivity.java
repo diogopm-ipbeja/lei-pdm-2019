@@ -47,6 +47,7 @@ public class AwfulListActivity extends AppCompatActivity {
 
         long lapsedTime = System.currentTimeMillis() - start;
 
+
         Toast.makeText(this, lapsedTime + "ms", Toast.LENGTH_LONG).show();
 
 
