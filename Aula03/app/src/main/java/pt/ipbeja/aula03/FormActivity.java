@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
 public class FormActivity extends AppCompatActivity {
+
+    public static final String TAG = FormActivity.class.getSimpleName();
 
     // É aconselhável criar constantes para nomes de extras dos Intents
     public static final String NAME_EXTRA = "name";
@@ -32,6 +35,37 @@ public class FormActivity extends AppCompatActivity {
         if(number > 0) this.studentNr.setText(number + "");
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "Lifecycle onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "Lifecycle onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        Log.d(TAG, "Lifecycle onPause");
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        Log.d(TAG, "Lifecycle onStop");
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d(TAG, "Lifecycle onDestroy");
+        super.onDestroy();
+    }
+
 
     /**
      * Método de callback do FloatingActionButton (ver atributo onClick em activity_form.xml)

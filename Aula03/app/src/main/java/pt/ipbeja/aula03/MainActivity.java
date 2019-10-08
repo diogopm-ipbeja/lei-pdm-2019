@@ -8,11 +8,14 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final String TAG = MainActivity.class.getSimpleName();
 
     // É aconselhável criar constantes para os códigos de pedido (ver #onActivityResult)
     private static final int FORM_REQUEST_CODE = 1000;
@@ -32,6 +35,36 @@ public class MainActivity extends AppCompatActivity {
         this.studentNr = findViewById(R.id.student_nr);
         this.photo = findViewById(R.id.photo);
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "Lifecycle onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "Lifecycle onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        Log.d(TAG, "Lifecycle onPause");
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        Log.d(TAG, "Lifecycle onStop");
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d(TAG, "Lifecycle onDestroy");
+        super.onDestroy();
     }
 
     /**
@@ -81,7 +114,9 @@ public class MainActivity extends AppCompatActivity {
             else if(requestCode == CAMERA_REQUEST_CODE) {
 
                 if(data != null) {
+                    // O thumbnail da foto tirada está num extra com nome "data"
                     Bitmap thumbnail = data.getParcelableExtra("data");
+                    // Depois de recuperar o Bitmap (representação da imagem) podemos colocá-lo na ImageView
                     this.photo.setImageBitmap(thumbnail);
 
                 }
@@ -94,7 +129,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void takePhoto(View view) {
+        // Criar um intent implícito. Passamos a acção e o Android tratará de lançar a aplicação
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        // Temos também um novo request code que identificará o resultado (ver #onActivityResult)
         startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
 
     }
