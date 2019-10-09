@@ -13,13 +13,14 @@
         android:layout_height="wrap_content"
         android:text="Awful List"
         android:onClick="onAwfulListClicked"
-        />
+        tools:ignore="HardcodedText" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Contact List"
-        android:onClick="onContactListClicked"/>
+        android:onClick="onContactListClicked"
+        tools:ignore="HardcodedText"/>
 
 
 

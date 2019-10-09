@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+@SuppressWarnings({"SpellCheckingInspection"})
 public class ContactListActivity extends AppCompatActivity {
 
     @Override

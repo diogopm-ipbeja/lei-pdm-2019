@@ -1,5 +1,6 @@
 package pt.ipbeja.aula04;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -26,6 +27,8 @@ public class AwfulListActivity extends AppCompatActivity {
 
     }
 
+    @SuppressWarnings("unused")
+    @SuppressLint({"SetTextI18n"})
     public void onFillListClicked(View view) {
 
         list.removeAllViews();
@@ -45,10 +48,10 @@ public class AwfulListActivity extends AppCompatActivity {
 
         }
 
-        long lapsedTime = System.currentTimeMillis() - start;
+        long elapsedTime = System.currentTimeMillis() - start;
 
 
-        Toast.makeText(this, lapsedTime + "ms", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, elapsedTime + "ms", Toast.LENGTH_LONG).show();
 
 
     }

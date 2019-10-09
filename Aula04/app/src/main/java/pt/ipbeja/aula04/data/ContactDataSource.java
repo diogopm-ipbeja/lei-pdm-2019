@@ -1,6 +1,5 @@
 package pt.ipbeja.aula04.data;
 
-import android.annotation.SuppressLint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +9,7 @@ import java.util.Locale;
 /**
  * Dummy Contact Database
  */
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class ContactDataSource {
 
     private static final String[] FIRST_NAMES = new String[]{
@@ -80,7 +80,7 @@ public class ContactDataSource {
 
 
     private static final int INITIAL_CONTACTS = 50;
-    private static List<Contact> contacts = new ArrayList<>();
+    private static final List<Contact> contacts = new ArrayList<>();
 
     static {
         contacts.addAll(createContacts());

@@ -2,6 +2,7 @@ package pt.ipbeja.aula04.data;
 
 import java.util.Objects;
 
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class Contact {
 
     private long id;

@@ -15,10 +15,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    @SuppressWarnings("unused")
     public void onAwfulListClicked(View view) {
         startActivity(new Intent(this, AwfulListActivity.class));
     }
 
+    @SuppressWarnings("unused")
     public void onContactListClicked(View view) {
         startActivity(new Intent(this, ContactListActivity.class));
     }
