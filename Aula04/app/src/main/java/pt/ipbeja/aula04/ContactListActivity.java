@@ -38,7 +38,7 @@ public class ContactListActivity extends AppCompatActivity {
 
         RecyclerView.LayoutManager lm = new LinearLayoutManager(this);
         list.setAdapter(adapter);
-        list.setLayoutManager(lm); // Alternativamente, também é possível atribuir um LayoutManager à RecyclerView a partir do XML (por ex: app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager")
+        list.setLayoutManager(lm); // Alternativamente, também é possível atribuir um LayoutManager à RecyclerView a partir do XML com o atributo app:layoutManager (por ex: app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager")
 
         // TODO 1) Permitir pressionar um item da lista e aceder a uma Activity de detalhe do mesmo
         // TODO 2) Eliminar items com clique longo (ver OnLongClickListener) com confirmação do utilizador (ver AlertDialog [https://medium.com/@suragch/making-an-alertdialog-in-android-2045381e2edb]) e feedback da acção (ver SnackBar [https://material.io/develop/android/components/snackbar/])
@@ -53,7 +53,8 @@ public class ContactListActivity extends AppCompatActivity {
 
         this.adapter.contacts.add(c); // Adicionamos o contact à fonte de dados do Adapter
         int lastPosition = this.adapter.contacts.size() - 1;
-        this.adapter.notifyItemInserted(lastPosition); // Notificamos o Adapter que foi inserido um novo item na dada posição
+        // Apesar de a lista já ter o novo contacto, o Adapter não sabe que os dados mudaram e não actualiza a lista!
+        this.adapter.notifyItemInserted(lastPosition); // Temos de notificar o Adapter que foi inserido um novo item na dada posição
 
         this.list.smoothScrollToPosition(lastPosition); // Podemos ainda pedir à RecyclerView para fazer scroll até ao novo item
     }
