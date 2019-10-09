@@ -41,8 +41,7 @@ public class ContactListActivity extends AppCompatActivity {
         list.setLayoutManager(lm); // Alternativamente, também é possível atribuir um LayoutManager à RecyclerView a partir do XML (por ex: app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager")
 
         // TODO 1) Permitir pressionar um item da lista e aceder a uma Activity de detalhe do mesmo
-        // TODO 2) Eliminar items (OnLongClickListener) com confirmação do utilizador
-        //          (ver AlertDialog) e feedback da acção (ver SnackBar ou Toast)
+        // TODO 2) Eliminar items com clique longo (ver OnLongClickListener) com confirmação do utilizador (ver AlertDialog [https://medium.com/@suragch/making-an-alertdialog-in-android-2045381e2edb]) e feedback da acção (ver SnackBar [https://material.io/develop/android/components/snackbar/])
         // TODO 3) Criar uma Activity para criar Contacts. Quando volta a esta Activity deve mostrar a lista actualizada com o novo Contact
         //          Altere o Contact para (além dos atributos existentes) ter o sexo, data de nascimento e uma fotografia (Bitmap)
         //          Para seleccionar o sexo do contacto deve utilizar RadioButtons (+ RadioGroup)
@@ -86,6 +85,8 @@ public class ContactListActivity extends AppCompatActivity {
                     Snackbar.make(view, text, Snackbar.LENGTH_SHORT).show();
                 }
             });
+
+            // TODO itemView.setOnLongClickListener ... delete!
 
         }
 
