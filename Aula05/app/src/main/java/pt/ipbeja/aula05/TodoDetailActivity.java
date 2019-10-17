@@ -1,24 +1,22 @@
 package pt.ipbeja.aula05;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.CheckBox;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import pt.ipbeja.aula05.db.AppDatabase;
 import pt.ipbeja.aula05.db.Todo;
 
 public class TodoDetailActivity extends AppCompatActivity {
 
+    public static final String TODO_ID_EXTRA = "todo_id";
+
     private TextView identifier;
     private TextView title;
     private TextView description;
     private CheckBox done;
-
-    public static final String TODO_ID_EXTRA = "todo_id";
 
 
     @Override

@@ -1,6 +1,5 @@
 package pt.ipbeja.aula05.db;
 
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -28,7 +27,7 @@ public class Todo {
     }
 
     // Podemos no entanto ter outros construtores desde que estejam anotados com @Ignore (para o Room ignorar este construtor)
-    @Ignore // Este tipo de construtores são convenientes para evitar estar sempre a passar o id = 0 sempre que queremos instanciar um novo Todo (ver abaixo)
+    @Ignore // Este tipo de construtores são convenientes para evitar estar sempre a passar o id = 0 sempre que queremos instanciar um novo objecto (ver abaixo)
     public Todo(String title, String description, boolean done) {
         this.id = 0; // Quando queremos que um id seja gerado automáticamente, podemos passar o valor 0 e o Room saberá que deve gerar um por nós
         this.title = title;

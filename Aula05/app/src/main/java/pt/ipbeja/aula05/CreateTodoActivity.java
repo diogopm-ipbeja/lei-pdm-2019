@@ -1,17 +1,14 @@
 package pt.ipbeja.aula05;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 
 import pt.ipbeja.aula05.db.AppDatabase;
 import pt.ipbeja.aula05.db.Todo;
-import pt.ipbeja.aula05.db.TodoDao;
 
 public class CreateTodoActivity extends AppCompatActivity {
 

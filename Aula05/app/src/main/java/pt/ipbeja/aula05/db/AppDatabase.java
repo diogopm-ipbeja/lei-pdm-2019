@@ -23,6 +23,6 @@ public abstract class AppDatabase extends RoomDatabase { // A class é sempre ab
         return INSTANCE;
     }
 
-    // Não esquecer de definir um método abstrato para cada um dos DAOs definidos
+    // Não esquecer definir um método abstrato para cada um dos DAOs
     public abstract TodoDao todoDao();
 }
