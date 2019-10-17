@@ -108,21 +108,21 @@ public class MainActivity extends AppCompatActivity {
                 public boolean onLongClick(View view) {
 
                     new AlertDialog.Builder(MainActivity.this)
-                    .setTitle("Delete note")
-                    .setMessage("Are you sure you want to delete this note?\nYou can't undo this action.")
-                    .setPositiveButton("Delete", new DialogInterface.OnClickListener() { // Um ClickListener para a acção positiva
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            // Só se o utilizar pressionar "Delete" é que apagamos o registo da BD
-                            AppDatabase.getInstance(MainActivity.this).todoDao().delete(todo);
-                            // TODO Execute a aplicação e tente eliminar uma das Notas da lista
-                            //  Verá que a nota continua na lista apesar de ter confirmado a sua eliminação
-                            //  Verifique que ao tentar aceder ao detalhe dessa nota a aplicação crasha (porquê?)
-                            //  Corrija o código para que a lista reflita esta alteração
-                        }
-                    })
-                    .setNegativeButton("Cancel", null) // Para a acção negativa, podemos passar null pois não queremos fazer nada com o registo
-                    .show(); // No final mostramos o AlertDialog
+                            .setTitle("Delete note")
+                            .setMessage("Are you sure you want to delete this note?\nYou can't undo this action.")
+                            .setPositiveButton("Delete", new DialogInterface.OnClickListener() { // Um ClickListener para a acção positiva
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    // Só se o utilizar pressionar "Delete" é que apagamos o registo da BD
+                                    AppDatabase.getInstance(MainActivity.this).todoDao().delete(todo);
+                                    // TODO Execute a aplicação e tente eliminar uma das Notas da lista
+                                    //  Verá que a nota continua na lista apesar de ter confirmado a sua eliminação
+                                    //  Verifique que ao tentar aceder ao detalhe dessa nota a aplicação crasha (porquê?)
+                                    //  Corrija o código para que a lista reflita esta alteração
+                                }
+                            })
+                            .setNegativeButton("Cancel", null) // Para a acção negativa, podemos passar null pois não queremos fazer nada com o registo
+                            .show(); // No final mostramos o AlertDialog
 
 
                     return true; // Nos OnLongClickListeners temos de devolver true se tratámos o evento
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         @NonNull
         @Override
         public TodoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent,false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
             return new TodoViewHolder(view);
         }
 

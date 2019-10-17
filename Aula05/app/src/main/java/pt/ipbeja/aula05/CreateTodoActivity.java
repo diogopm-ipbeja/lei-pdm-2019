@@ -16,7 +16,6 @@ public class CreateTodoActivity extends AppCompatActivity {
     private TextInputEditText todoDescription;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

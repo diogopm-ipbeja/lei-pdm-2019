@@ -5,10 +5,12 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 
-@Entity(tableName = "todo") // Temos de anotar cada um dos modelos que servirá de template para uma tabela da BD. O atributo tableName é opcional.
+@Entity(tableName = "todo")
+// Temos de anotar cada um dos modelos que servirá de template para uma tabela da BD. O atributo tableName é opcional.
 public class Todo {
 
-    @PrimaryKey(autoGenerate = true) // Devemos anotar o atributo que servirá de chave e - tipicamente necessário - que este id seja autogerado
+    @PrimaryKey(autoGenerate = true)
+    // Devemos anotar o atributo que servirá de chave e - tipicamente necessário - que este id seja autogerado
     private long id;
 
     // Por defeito, os nomes das colunas serão os mesmos dos atributos
@@ -27,9 +29,10 @@ public class Todo {
     }
 
     // Podemos no entanto ter outros construtores desde que estejam anotados com @Ignore (para o Room ignorar este construtor)
-    @Ignore // Este tipo de construtores são convenientes para evitar estar sempre a passar o id = 0 sempre que queremos instanciar um novo objecto (ver abaixo)
+    @Ignore
+    // Este tipo de construtores são convenientes para evitar estar sempre a passar o id = 0 sempre que queremos instanciar um novo objecto (ver abaixo)
     public Todo(String title, String description, boolean done) {
-        this.id = 0; // Quando queremos que um id seja gerado automáticamente, podemos passar o valor 0 e o Room saberá que deve gerar um por nós
+        this.id = 0; // Quando queremos que um id seja gerado automaticamente, podemos passar o valor 0 e o Room saberá que deve gerar um por nós
         this.title = title;
         this.description = description;
         this.done = done;
