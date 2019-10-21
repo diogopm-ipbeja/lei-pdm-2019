@@ -1,7 +1,5 @@
 package pt.ipbeja.chat.db.dao;
 
-import androidx.room.Insert;
-
 import java.util.List;
 
 import pt.ipbeja.chat.db.entity.Contact;

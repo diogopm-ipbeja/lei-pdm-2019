@@ -1,8 +1,8 @@
 package pt.ipbeja.chat;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class ContactDetailsActivity extends AppCompatActivity {
 
@@ -13,7 +13,9 @@ public class ContactDetailsActivity extends AppCompatActivity {
 
         // TODO: Esta Activity deve mostrar os detalhes do contacto:
         //  - id, nome
-        //  - Número total de mensagens associadas a este contacto (criar uma query em MessageDao que devolve um int)
-        //  - Mostrar o texto da última mensagem enviada (criar uma query em MessageDao que devolve uma String)
+        //  - Número total de mensagens associadas a este contacto (criar uma query em MessageDao
+        //  que devolve um int)
+        //  - Mostrar o texto da última mensagem enviada (criar uma query em MessageDao que devolve
+        //  uma String)
     }
 }

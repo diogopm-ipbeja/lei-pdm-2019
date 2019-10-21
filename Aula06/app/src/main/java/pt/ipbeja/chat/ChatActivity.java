@@ -25,7 +25,8 @@ public class ChatActivity extends AppCompatActivity {
 
     public void onSendMessageClicked(View view) {
         // TODO: Retirar o texto de chatInputField, criar uma ChatMessage e adicioná-la à BD
-        //  Adicionar a ChatMessage ao Adapter e notificá-lo que foi adicionado um item (Adapter#notifyItemInserted)
+        //  Adicionar a ChatMessage ao Adapter e notificá-lo que foi adicionado um item
+        //  (Adapter#notifyItemInserted)
         //  Não esquecer limpar o chatInputField depois de 'enviar' a mensagem
         //  Não permitir que se envie uma mensagem com o texto vazio
     }
