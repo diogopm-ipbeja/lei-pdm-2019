@@ -7,16 +7,20 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class CreateContactActivity extends AppCompatActivity {
 
-    private EditText contactNameField;
+    private TextInputLayout contactNameFieldLayout;
+    private TextInputEditText contactNameField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_contact);
         this.contactNameField = findViewById(R.id.contact_name);
+        this.contactNameFieldLayout = findViewById(R.id.contact_name_layout);
 
     }
 
@@ -26,6 +30,8 @@ public class CreateContactActivity extends AppCompatActivity {
         if(name.trim().isEmpty()) {
             // Se o user não preencheu o(s) campo(s) necessário(s), podemos alertar com um Snackbar
             Snackbar.make(view, "Insira o nome", Snackbar.LENGTH_SHORT).show();
+            // Ou até indicar no TextInputLayout o erro (ver atributo errorEnabled no elemento do layout activity_create_contact)
+            contactNameFieldLayout.setError("Este campo tem de ser preenchido.");
         }
         else {
             // TODO: Criar e adicionar um Contact à BD

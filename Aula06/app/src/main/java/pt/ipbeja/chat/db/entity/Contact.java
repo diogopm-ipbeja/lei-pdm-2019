@@ -15,8 +15,14 @@ public class Contact {
 
     @Ignore
     public Contact(String name) {
-        this.id = 0;
-        this.name = name;
+        this(0, name);
+    }
+
+    public String getInitials() {
+        // TODO: Devolver uma String com (máx 2) iniciais
+        //  (eg. "Arthur C. Clarke" -> "AC"; "Isaac Asimov" -> "IA"; "Verne" -> "V")
+        //  Será utilizado para colocar as iniciais em cada item da lista de contactos
+        return null;
     }
 
     public long getId() {
