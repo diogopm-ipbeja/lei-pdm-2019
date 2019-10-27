@@ -7,6 +7,10 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "message")
 public class ChatMessage {
 
+    // TODO: Adicionar um atributo (long) que indica quando a mensagem foi enviada
+    //  Não se esqueça que como estará a alterar o schema da base de dados terá de incrementar a
+    //  versão da BD
+
     public static final int INBOUND = 0;
     public static final int OUTBOUND = 1;
 

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="create_contact_name_hint">Insira o nome</string>
+    <string name="create_contact_error_hint">Este campo tem de ser preenchido.</string>
+</resources>

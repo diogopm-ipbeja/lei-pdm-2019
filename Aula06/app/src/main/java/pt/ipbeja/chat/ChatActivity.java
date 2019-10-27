@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,46 +46,68 @@ public class ChatActivity extends AppCompatActivity {
             return;
         }
 
+        // TODO: Colocar na toolbar o nome do contacto
+        // TODO: Criar um menu com:
+        //  - item para apagar todas as mensagens do contacto
+        //  - item para apagar o contacto (e as suas mensagens)
+        //  - item para aceder aos detalhes do contacto (ContactDetailsActivity)
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setSubtitle("yo");
 
         this.list = findViewById(R.id.message_list);
         this.chatInputField = findViewById(R.id.chat_text_input);
         this.adapter = new MessageAdapter();
         list.setAdapter(adapter);
-
-
-        // TODO: Depois de definir o MessageAdapter, instanciar e atribuir à RecyclerView
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
         adapter.setMessages(ChatDatabase.getInstance(this).messageDao().getAll(contactId));
+        scrollToBottom();
+    }
+
+    private void scrollToBottom() {
+        int position = adapter.messages.size() - 1;
+        if(position > -1) list.smoothScrollToPosition(position);
     }
 
     public void onSendMessageClicked(View view) {
 
-        String msg = chatInputField.getText().toString();
-        ChatMessage message = ChatMessage.randomDirection(contactId, msg);
-        ChatDatabase.getInstance(this).messageDao().insert(message);
-        adapter.addMessage(message);
-        list.smoothScrollToPosition(adapter.getItemCount()- 1);
+        String msgText = chatInputField.getText().toString().trim();
 
-        // TODO: Retirar o texto de chatInputField, criar uma ChatMessage e adicioná-la à BD
-        //  Adicionar a ChatMessage ao Adapter e notificá-lo que foi adicionado um item
-        //  (Adapter#notifyItemInserted)
-        //  Não esquecer limpar o chatInputField depois de 'enviar' a mensagem
-        //  Não permitir que se envie uma mensagem com o texto vazio
+        if(!msgText.isEmpty()) {
+            chatInputField.setText(""); // Como já retirámos o input, podemos limpar a caixa de texto
+
+            // TODO: Incluir a data do envio da mensagem (System.currentTimeMillis() devolve a data
+            //  actual na forma de um long)
+            ChatMessage message = ChatMessage.randomDirection(this.contactId, msgText);
+            ChatDatabase.getInstance(this).messageDao().insert(message);
+            adapter.addMessage(message);
+            scrollToBottom();
+        }
     }
+
+
 
     class MessageViewHolder extends RecyclerView.ViewHolder {
 
         private ChatMessage chatMessage;
         private TextView messageText;
+        // TODO: Adicionar uma TextView com a data/hora da mensagem (ver ChatMessage)
+        //  Para formatar a data que vem como um long numa String legível, veja os métodos na class
+        //  DateUtils.
+        //  ex de utilização DateUtils.format(1572200219058) resulta em "27/10/2019 18:16"
 
         public MessageViewHolder(@NonNull View itemView) {
             super(itemView);
             this.messageText = itemView.findViewById(R.id.chat_item_text);
+
+            // TODO: Ao pressionar prolongadamente a mensagem, mostra um AlertDialog para eliminar a
+            //  mensagem.
+            //  Mostre o texto, data de envio e se foi enviada ou recebida no corpo do AlertDialog
+            //  Adicione um botão ao AlertDialog para confirmar a eliminação e outro para cancelar
         }
 
         public void bind(ChatMessage message) {
@@ -113,8 +135,11 @@ public class ChatActivity extends AppCompatActivity {
         @NonNull
         @Override
         public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            int layout = 0;
-            switch (viewType) {
+            // Temos 2 layouts diferentes: Um para as mensagens de entrada e outro para as de saída
+
+            // Dependendo o viewType (ver getItemViewType) escolhemos um ou outro layout para o item
+            int layout; // As refs são ints (R.layout.foo, R.id.bar, R.string.fizz, etc.)
+            switch (viewType) { // o viewType que nos chega é um de 2 valores possíveis (direction)
                 case ChatMessage.INBOUND:
                     layout = R.layout.inbound_chat_list_item;
                     break;
@@ -122,6 +147,7 @@ public class ChatActivity extends AppCompatActivity {
                     layout = R.layout.outbound_chat_list_item;
                     break;
                 default:
+                    // Opcionalmente podemos lançar uma excepção caso seja um tipo não esperado
                     throw new IllegalArgumentException("Unknown message type");
             }
 
@@ -129,12 +155,14 @@ public class ChatActivity extends AppCompatActivity {
                     .inflate(layout, parent, false);
 
             return new MessageViewHolder(view);
-
         }
 
         @Override
         public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
+            // O holder que entra aqui tem o layout correcto para a mensagem que vamos "desenhar"
             ChatMessage message = messages.get(position);
+            // Como a View tem exactamente os mesmos atributos para cada um dos layouts, podemos
+            // utilizar o mesmo ViewHolder
             holder.bind(message);
         }
 
@@ -145,8 +173,9 @@ public class ChatActivity extends AppCompatActivity {
 
         @Override
         public int getItemViewType(int position) {
-
+            // Podemos definir o tipo de cada item da lista
             ChatMessage message = messages.get(position);
+            // neste caso, podemos utilizar a direcção como diferenciador (ver onCreateViewHolder)
             return message.getDirection();
         }
     }

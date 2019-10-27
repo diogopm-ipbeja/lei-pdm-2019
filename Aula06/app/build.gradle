@@ -15,12 +15,16 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            applicationIdSuffix = '.release'
         }
+
     }
+
     compileOptions {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
+
 }
 
 dependencies {

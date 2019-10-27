@@ -1,6 +1,5 @@
 package pt.ipbeja.chat;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -63,6 +61,16 @@ public class MainActivity extends AppCompatActivity {
             itemView.setOnClickListener(view -> {
                 ChatActivity.start(MainActivity.this, contact.getId());
             });
+
+            itemView.setOnLongClickListener(v -> {
+
+                // TODO: AlertDialog para eliminar o contacto
+                //  Eliminar o contacto e as suas mensagens
+
+                return true;
+            });
+
+            initials.setOnClickListener(view -> ContactDetailsActivity.start(MainActivity.this, contact.getId()));
 
         }
 

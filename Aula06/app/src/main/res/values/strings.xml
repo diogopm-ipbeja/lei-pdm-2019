@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">WhatChat</string>
+    <string name="app_name" translatable="false">WhatChat</string>
+    <string name="create_contact_name_hint">Contact name</string>
+    <string name="create_contact_error_hint">You must insert a name</string>
 </resources>
