@@ -1,14 +1,18 @@
 package pt.ipbeja.chat.db.entity;
 
+import androidx.room.Entity;
 import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
-// TODO: Anotar esta Entity (class e atributo(s))
+@Entity(tableName = "message")
 public class ChatMessage {
 
     public static final int INBOUND = 0;
     public static final int OUTBOUND = 1;
 
+    @PrimaryKey(autoGenerate = true)
     private long id;
+
     private long contactId;
     private String text;
     private int direction;

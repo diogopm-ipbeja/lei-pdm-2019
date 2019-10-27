@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="you_have_no_notes">Não tem notas</string>
+    <string name="todo_detail_title">Título</string>
+    <string name="detail_done">Feito</string>
+    <string name="alert_delete_title">Delete note</string>
+</resources>

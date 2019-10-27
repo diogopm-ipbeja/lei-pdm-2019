@@ -1,5 +1,7 @@
 package pt.ipbeja.chat;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -9,12 +11,21 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import pt.ipbeja.chat.db.ChatDatabase;
+import pt.ipbeja.chat.db.entity.Contact;
+
 public class CreateContactActivity extends AppCompatActivity {
 
     // TODO: Esta class também poderia servir para editar um Contacto
 
     private TextInputLayout contactNameFieldLayout;
     private TextInputEditText contactNameField;
+
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, CreateContactActivity.class);
+        context.startActivity(starter);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +47,8 @@ public class CreateContactActivity extends AppCompatActivity {
             contactNameFieldLayout.setError("Este campo tem de ser preenchido.");
         }
         else {
-            // TODO: Criar e adicionar um Contact à BD
+            Contact contact = new Contact(contactNameField.getText().toString());
+            ChatDatabase.getInstance(this).contactDao().insert(contact);
             finish();
         }
     }

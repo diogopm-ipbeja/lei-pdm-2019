@@ -1,6 +1,8 @@
 package pt.ipbeja.chat.db.dao;
 
+import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.Update;
 
 /**
  * Interface base para os DAOs. Esta interface NÃO É um DAO e não deve ser anotada como tal mas
@@ -15,10 +17,11 @@ interface BaseDao<ENTITY> {
 
     @Insert
     long insert(ENTITY t);
-    // TODO: Anotar os restantes métodos
 
+    @Update
     int update(ENTITY t);
 
+    @Delete
     int delete(ENTITY t);
 
 }
