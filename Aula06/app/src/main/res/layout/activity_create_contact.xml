@@ -24,6 +24,13 @@
                 android:hint="Contact name" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <DatePicker
+            android:id="@+id/contact_birthday"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner"/>
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -37,5 +44,7 @@
         app:srcCompat="@drawable/ic_check_black_24dp"
         android:onClick="onConfirmContactClicked"
         android:focusable="true" />
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

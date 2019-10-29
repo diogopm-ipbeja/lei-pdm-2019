@@ -30,7 +30,7 @@ public class ContactDetailsActivity extends AppCompatActivity {
         }
 
         // TODO: Esta Activity deve mostrar os detalhes do contacto:
-        //  - id, nome
+        //  - id, nome, data de nascimento e data de criação
         //  - Número total de mensagens associadas a este contacto (criar uma query em MessageDao
         //  que devolve um int)
         //  - Mostrar o texto da última mensagem associada ao contacto (criar uma query em

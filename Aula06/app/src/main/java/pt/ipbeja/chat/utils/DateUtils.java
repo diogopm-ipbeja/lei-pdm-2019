@@ -3,6 +3,7 @@ package pt.ipbeja.chat.utils;
 import android.annotation.SuppressLint;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtils {
@@ -29,5 +30,32 @@ public class DateUtils {
      */
     public static String formatDate(long date) {
         return formatDate(new Date(date));
+    }
+
+    /**
+     * Cria uma Date a partir de um ano, mês e dia do mês
+     * @param year Ano
+     * @param month Mês (Os meses começam em zero. 0 -> Janeiro, 1 -> Fevereiro, etc.)
+     * @param dayOfMonth Dia do mês
+     * @return Uma Date
+     */
+    public static Date createDate(int year, int month, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        return c.getTime();
+    }
+
+    /**
+     * Cria uma representação em long de uma data a partir de um ano, mês e dia do mês
+     * @param year Ano
+     * @param month Mês (Os meses começam em zero. 0 -> Janeiro, 1 -> Fevereiro, etc.)
+     * @param dayOfMonth Dia do mês
+     * @return Um long da data
+     */
+    public static long createLong(int year, int month, int dayOfMonth) {
+        Date date = createDate(year, month, dayOfMonth);
+        return date.getTime();
     }
 }
