@@ -5,7 +5,7 @@ import android.graphics.BitmapFactory;
 
 import androidx.annotation.Nullable;
 
-import java.nio.ByteBuffer;
+import java.io.ByteArrayOutputStream;
 
 public class BitmapUtils {
 
@@ -17,10 +17,9 @@ public class BitmapUtils {
      * @return Um array de bytes da imagem
      */
     public static byte[] toBytes(Bitmap bitmap) {
-        int size = bitmap.getRowBytes() * bitmap.getHeight();
-        ByteBuffer byteBuffer = ByteBuffer.allocate(size);
-        bitmap.copyPixelsToBuffer(byteBuffer);
-        return byteBuffer.array();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        return stream.toByteArray();
     }
 
     /**
