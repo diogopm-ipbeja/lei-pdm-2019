@@ -3,7 +3,11 @@ package pt.ipbeja.chat;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -52,14 +56,12 @@ public class ChatActivity extends AppCompatActivity {
         //  - item para apagar o contacto (e as suas mensagens)
         //  - item para aceder aos detalhes do contacto (ContactDetailsActivity)
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setSubtitle("yo");
-
         this.list = findViewById(R.id.message_list);
         this.chatInputField = findViewById(R.id.chat_text_input);
         this.adapter = new MessageAdapter();
         list.setAdapter(adapter);
     }
+
 
     @Override
     protected void onStart() {
@@ -88,8 +90,6 @@ public class ChatActivity extends AppCompatActivity {
             scrollToBottom();
         }
     }
-
-
 
     class MessageViewHolder extends RecyclerView.ViewHolder {
 
