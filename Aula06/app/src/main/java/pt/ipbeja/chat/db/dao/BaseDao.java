@@ -2,7 +2,10 @@ package pt.ipbeja.chat.db.dao;
 
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Update;
+
+import java.util.List;
 
 /**
  * Interface base para os DAOs. Esta interface NÃO É um DAO e não deve ser anotada como tal mas

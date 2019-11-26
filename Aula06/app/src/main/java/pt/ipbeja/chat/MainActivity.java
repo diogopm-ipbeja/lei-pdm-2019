@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView list;
     private ContactAdapter adapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,10 +62,8 @@ public class MainActivity extends AppCompatActivity {
             });
 
             itemView.setOnLongClickListener(v -> {
-
                 // TODO: AlertDialog para eliminar o contacto
                 //  Eliminar o contacto e as suas mensagens
-
                 return true;
             });
 

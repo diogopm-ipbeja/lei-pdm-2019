@@ -2,4 +2,6 @@
     <string name="app_name" translatable="false">WhatChat</string>
     <string name="create_contact_name_hint">Contact name</string>
     <string name="create_contact_error_hint">You must insert a name</string>
+    <string name="chat_delete_messages">Delete messages</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

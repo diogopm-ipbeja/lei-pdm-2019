@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +21,8 @@ import java.util.List;
 
 import pt.ipbeja.chat.db.ChatDatabase;
 import pt.ipbeja.chat.db.entity.ChatMessage;
+import pt.ipbeja.chat.db.entity.Contact;
+import pt.ipbeja.chat.utils.DateUtils;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -46,6 +51,12 @@ public class ChatActivity extends AppCompatActivity {
             return;
         }
 
+        Contact contact = ChatDatabase.getInstance(this).contactDao().get(contactId);
+
+
+        ActionBar supportActionBar = getSupportActionBar();
+        supportActionBar.setTitle(contact.getName());
+
         // TODO: Colocar na toolbar o nome do contacto
         // TODO: Criar um menu com:
         //  - item para apagar todas as mensagens do contacto
@@ -58,6 +69,13 @@ public class ChatActivity extends AppCompatActivity {
         list.setAdapter(adapter);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.chat, menu);
+
+
+        return true;
+    }
 
     @Override
     protected void onStart() {
@@ -81,34 +99,58 @@ public class ChatActivity extends AppCompatActivity {
             // TODO: Incluir a data do envio da mensagem (System.currentTimeMillis() devolve a data
             //  actual na forma de um long)
             ChatMessage message = ChatMessage.randomDirection(this.contactId, msgText);
-            ChatDatabase.getInstance(this).messageDao().insert(message);
+            long id = ChatDatabase.getInstance(this).messageDao().insert(message);
+            message.setId(id);
             adapter.addMessage(message);
             scrollToBottom();
         }
+    }
+
+    public void onDeleteMessagesClicked(MenuItem item) {
+
     }
 
     class MessageViewHolder extends RecyclerView.ViewHolder {
 
         private ChatMessage chatMessage;
         private TextView messageText;
+        private TextView timestampText;
         // TODO: Adicionar uma TextView com a data/hora da mensagem (ver ChatMessage)
         //  Para formatar a data que vem como um long numa String legível, veja os métodos na class
         //  DateUtils.
         //  ex de utilização DateUtils.format(1572200219058) resulta em "27/10/2019 18:16"
 
+
         public MessageViewHolder(@NonNull View itemView) {
             super(itemView);
             this.messageText = itemView.findViewById(R.id.chat_item_text);
+            this.timestampText = itemView.findViewById(R.id.timestamp);
 
-            // TODO: Ao pressionar prolongadamente a mensagem, mostra um AlertDialog para eliminar a
-            //  mensagem.
-            //  Mostre o texto, data de envio e se foi enviada ou recebida no corpo do AlertDialog
-            //  Adicione um botão ao AlertDialog para confirmar a eliminação e outro para cancelar
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+
+                    int delete = ChatDatabase.getInstance(ChatActivity.this).messageDao().delete(chatMessage);
+                    adapter.deleteMessage(getAdapterPosition());
+
+                    // TODO: Ao pressionar prolongadamente a mensagem, mostra um AlertDialog para eliminar a
+                    //  mensagem.
+                    //  Mostre o texto, data de envio e se foi enviada ou recebida no corpo do AlertDialog
+                    //  Adicione um botão ao AlertDialog para confirmar a eliminação e outro para cancelar
+
+                    return true;
+                }
+            });
+
+
         }
 
         public void bind(ChatMessage message) {
             this.chatMessage = message;
             messageText.setText(message.getText());
+            long timestamp = message.getTimestamp();
+            String date = DateUtils.formatDate(timestamp);
+            timestampText.setText(date);
         }
     }
 
@@ -173,6 +215,11 @@ public class ChatActivity extends AppCompatActivity {
             ChatMessage message = messages.get(position);
             // neste caso, podemos utilizar a direcção como diferenciador (ver onCreateViewHolder)
             return message.getDirection();
+        }
+
+        public void deleteMessage(int position) {
+            messages.remove(position);
+            notifyItemRemoved(position);
         }
     }
 }

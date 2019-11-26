@@ -2,4 +2,5 @@
 <resources>
     <string name="create_contact_name_hint">Insira o nome</string>
     <string name="create_contact_error_hint">Este campo tem de ser preenchido.</string>
+    <string name="chat_delete_messages">Apagar mensagens</string>
 </resources>

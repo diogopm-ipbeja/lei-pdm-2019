@@ -35,5 +35,6 @@ public class ContactDetailsActivity extends AppCompatActivity {
         //  que devolve um int)
         //  - Mostrar o texto da última mensagem associada ao contacto (criar uma query em
         //  MessageDao que devolve uma String)
+
     }
 }

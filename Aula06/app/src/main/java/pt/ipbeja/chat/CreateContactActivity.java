@@ -8,19 +8,28 @@ import android.widget.DatePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import pt.ipbeja.chat.db.ChatDatabase;
 import pt.ipbeja.chat.db.entity.Contact;
+import pt.ipbeja.chat.db.entity.Coordinates;
 
-public class CreateContactActivity extends AppCompatActivity {
+public class CreateContactActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     // TODO: Esta class também poderia servir para editar um Contacto, adicione essa possibilidade
     //  (dica, utilize os Extras para passar o ID do contacto se for o caso de uma edição)
     // TODO: Dar a opção de tirar uma foto e associá-la ao contacto (ver Contact e BitmapUtils)
-    // TODO: Pedir a data de nascimento do contacto (
+    // TODO: Pedir a data de nascimento do contacto
+
+    private Marker marker;
 
     private TextInputLayout contactNameFieldLayout;
     private TextInputEditText contactNameField;
@@ -39,6 +48,10 @@ public class CreateContactActivity extends AppCompatActivity {
         this.contactNameField = findViewById(R.id.contact_name);
         this.contactNameFieldLayout = findViewById(R.id.contact_name_layout);
         this.birthdayPicker = findViewById(R.id.contact_birthday);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
     }
 
@@ -61,9 +74,31 @@ public class CreateContactActivity extends AppCompatActivity {
             // TODO: Atribua também ao contacto a data de criação do mesmo
             //  Dica - Pode utilizar o método System.currentTimeMillis() para obter um long que
             //  representa a data/hora actual.
-            Contact contact = new Contact(contactNameField.getText().toString());
+            Coordinates coordinates = null;
+            if(marker != null) {
+                LatLng position = marker.getPosition();
+                coordinates = new Coordinates(position.latitude, position.longitude);
+            }
+            Contact contact = new Contact(contactNameField.getText().toString(), coordinates);
             ChatDatabase.getInstance(this).contactDao().insert(contact);
             finish();
         }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                if(marker == null) {
+                    MarkerOptions markerOptions = new MarkerOptions()
+                            .position(latLng);
+                    marker = googleMap.addMarker(markerOptions);
+                }
+                else {
+                    marker.setPosition(latLng);
+                }
+            }
+        });
     }
 }

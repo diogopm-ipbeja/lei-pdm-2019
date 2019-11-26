@@ -11,7 +11,7 @@ import pt.ipbeja.chat.db.dao.MessageDao;
 import pt.ipbeja.chat.db.entity.ChatMessage;
 import pt.ipbeja.chat.db.entity.Contact;
 
-@Database(entities = {Contact.class, ChatMessage.class}, version =4)
+@Database(entities = {Contact.class, ChatMessage.class}, version = 7)
 public abstract class ChatDatabase extends RoomDatabase {
 
     private static ChatDatabase INSTANCE = null;

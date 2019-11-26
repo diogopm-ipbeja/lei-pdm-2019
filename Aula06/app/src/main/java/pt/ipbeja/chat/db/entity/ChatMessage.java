@@ -7,10 +7,6 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "message")
 public class ChatMessage {
 
-    // TODO: Adicionar um atributo (long) que indica quando a mensagem foi enviada
-    //  Não se esqueça que como estará a alterar o schema da base de dados terá de incrementar a
-    //  versão da BD
-
     public static final int INBOUND = 0;
     public static final int OUTBOUND = 1;
 
@@ -20,17 +16,19 @@ public class ChatMessage {
     private long contactId;
     private String text;
     private int direction;
+    private long timestamp;
 
-    public ChatMessage(long id, long contactId, String text, int direction) {
+    public ChatMessage(long id, long contactId, String text, int direction, long timestamp) {
         this.id = id;
         this.contactId = contactId;
         this.text = text;
         this.direction = direction;
+        this.timestamp = timestamp;
     }
 
     @Ignore
     public ChatMessage(long contactId, String text,  int direction) {
-        this(0, contactId, text, direction);
+        this(0, contactId, text, direction, System.currentTimeMillis());
     }
 
     public static ChatMessage randomDirection(long contactId, String text) {
@@ -52,5 +50,13 @@ public class ChatMessage {
 
     public int getDirection() {
         return direction;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }
