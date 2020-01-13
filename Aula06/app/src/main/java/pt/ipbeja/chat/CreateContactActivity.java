@@ -2,6 +2,7 @@ package pt.ipbeja.chat;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
@@ -80,8 +81,10 @@ public class CreateContactActivity extends AppCompatActivity implements OnMapRea
                 coordinates = new Coordinates(position.latitude, position.longitude);
             }
             Contact contact = new Contact(contactNameField.getText().toString(), coordinates);
-            ChatDatabase.getInstance(this).contactDao().insert(contact);
-            finish();
+            //ChatDatabase.getInstance(this).contactDao().insert(contact);
+            //finish();
+
+            new InsertContactTask().execute(contact);
         }
     }
 
@@ -101,4 +104,42 @@ public class CreateContactActivity extends AppCompatActivity implements OnMapRea
             }
         });
     }
+
+
+    public class InsertContactTask extends AsyncTask<Contact, Void, Long> {
+
+        @Override
+        protected Long doInBackground(Contact... contacts) {
+            // Vai correr numa thread à parte
+            long id = ChatDatabase.getInstance(CreateContactActivity.this).contactDao().insert(contacts[0]);
+            return id;
+        }
+
+        @Override
+        protected void onPostExecute(Long aLong) {
+            super.onPostExecute(aLong);
+
+            finish();
+        }
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

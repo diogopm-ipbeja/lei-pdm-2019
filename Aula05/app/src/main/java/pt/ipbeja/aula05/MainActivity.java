@@ -15,8 +15,17 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import pt.ipbeja.aula05.db.AppDatabase;
 import pt.ipbeja.aula05.db.Todo;
@@ -50,6 +59,33 @@ public class MainActivity extends AppCompatActivity {
         adapter.setData(todoList); // ver o método setData
 
         notesHint.setVisibility(todoList.isEmpty() ? View.VISIBLE : View.INVISIBLE);
+
+
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+        Task<QuerySnapshot> notes = firestore.collection("notes").get();
+        notes.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                QuerySnapshot result = task.getResult();
+                for (DocumentSnapshot document : result.getDocuments()) {
+
+                    Todo todo = document.toObject(Todo.class);
+                    System.out.println(todo);
+
+                }
+
+            }
+        });
+
+        /*
+        Map<String, Object> map = new HashMap<>();
+        map.put("title", "teste 1");
+        map.put("date", System.currentTimeMillis());
+        Task<DocumentReference> add = firestore.collection("notes").add(map);
+        */
+
 
     }
 

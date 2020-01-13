@@ -3,9 +3,14 @@ package pt.ipbeja.aula05;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import pt.ipbeja.aula05.db.AppDatabase;
 import pt.ipbeja.aula05.db.Todo;
@@ -32,6 +37,15 @@ public class CreateTodoActivity extends AppCompatActivity {
         // Depois só precisamos de passar esse modelo como parâmetro do método insert
         AppDatabase.getInstance(this).todoDao().insert(todo);
         // No final, podemos terminar esta Activity e voltar à MainActivity
-        finish();
+
+
+
+        FirebaseFirestore instance = FirebaseFirestore.getInstance();
+        instance.collection("notes").add(todo).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentReference> task) {
+                finish();
+            }
+        });
     }
 }

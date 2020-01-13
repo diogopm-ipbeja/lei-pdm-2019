@@ -22,6 +22,7 @@ import java.util.List;
 import pt.ipbeja.chat.db.ChatDatabase;
 import pt.ipbeja.chat.db.entity.ChatMessage;
 import pt.ipbeja.chat.db.entity.Contact;
+import pt.ipbeja.chat.db.entity.ContactWithMessages;
 import pt.ipbeja.chat.utils.DateUtils;
 
 public class ChatActivity extends AppCompatActivity {
@@ -51,11 +52,29 @@ public class ChatActivity extends AppCompatActivity {
             return;
         }
 
-        Contact contact = ChatDatabase.getInstance(this).contactDao().get(contactId);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
 
 
-        ActionBar supportActionBar = getSupportActionBar();
-        supportActionBar.setTitle(contact.getName());
+                ContactWithMessages c = ChatDatabase.getInstance(ChatActivity.this).contactDao().getWithMessages(contactId);
+                System.out.println(c);
+                Contact contact = ChatDatabase.getInstance(ChatActivity.this).contactDao().get(contactId);
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ActionBar supportActionBar = getSupportActionBar();
+                        supportActionBar.setTitle(contact.getName());
+                    }
+                });
+
+
+            }
+        }).start();
+
+
 
         // TODO: Colocar na toolbar o nome do contacto
         // TODO: Criar um menu com:
@@ -80,7 +99,7 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        adapter.setMessages(ChatDatabase.getInstance(this).messageDao().getAll(contactId));
+        new Thread(()-> adapter.setMessages(ChatDatabase.getInstance(this).messageDao().getAll(contactId)));
         scrollToBottom();
     }
 

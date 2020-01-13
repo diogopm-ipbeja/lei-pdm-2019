@@ -4,6 +4,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.google.firebase.firestore.Exclude;
+
 
 @Entity(tableName = "todo")
 // Temos de anotar cada um dos modelos que servirá de template para uma tabela da BD. O atributo tableName é opcional.
@@ -19,6 +21,9 @@ public class Todo {
     // @ColumnInfo(name = "todo_description")
     private String description;
     private boolean done;
+
+
+    public Todo() {}
 
     // Deve existir um construtor com as entradas para cada uma das colunas (será usado internamente pelo Room)
     public Todo(long id, String title, String description, boolean done) {

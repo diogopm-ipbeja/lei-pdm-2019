@@ -2,6 +2,8 @@ package pt.ipbeja.chat;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -11,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import pt.ipbeja.chat.db.ChatDatabase;
@@ -30,19 +34,78 @@ public class MainActivity extends AppCompatActivity {
         this.adapter = new ContactAdapter();
         this.list.setAdapter(adapter);
 
+        ChatDatabase.getInstance(this)
+                .contactDao()
+                .getAllLiveData()
+                .observe(this, contacts -> {
+
+
+
+                    Collections.sort(contacts, new Comparator<Contact>() {
+                        @Override
+                        public int compare(Contact o1, Contact o2) {
+                            return 0;
+                        }
+                    });
+
+                    adapter.setContacts(contacts);
+                });
+
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        List<Contact> contacts = ChatDatabase.getInstance(this).contactDao().getAll();
-        adapter.setContacts(contacts);
+
+        /*
+        // Ver versão alternativa em onCreate utilizando LiveData para observar alterações na BD
+        new Thread(() -> {
+            List<Contact> contacts = ChatDatabase.getInstance(MainActivity.this).contactDao().getAll();
+            runOnUiThread(() -> adapter.setContacts(contacts));
+        }).start();
+        */
+
+
+
     }
 
     public void onAddContactClicked(View view) {
         CreateContactActivity.start(this);
     }
 
+    public void onSortContactsClicked(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.sort_asc:
+                sortContacts(true);
+                break;
+            case R.id.sort_desc:
+                sortContacts(false);
+                break;
+        }
+    }
+
+
+    private void sortContacts(boolean asc) {
+        Collections.sort(adapter.contacts, new Comparator<Contact>() {
+            @Override
+            public int compare(Contact o1, Contact o2) {
+
+                int order = o1.getName().compareToIgnoreCase(o2.getName());
+                if(!asc) order = -order;
+                return order;
+            }
+        });
+
+        adapter.notifyDataSetChanged();
+
+    }
 
     class ContactViewHolder extends RecyclerView.ViewHolder {
 

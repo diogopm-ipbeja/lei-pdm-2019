@@ -11,6 +11,7 @@ import pt.ipbeja.chat.db.dao.MessageDao;
 import pt.ipbeja.chat.db.entity.ChatMessage;
 import pt.ipbeja.chat.db.entity.Contact;
 
+
 @Database(entities = {Contact.class, ChatMessage.class}, version = 7)
 public abstract class ChatDatabase extends RoomDatabase {
 
@@ -21,7 +22,7 @@ public abstract class ChatDatabase extends RoomDatabase {
         if(INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), ChatDatabase.class, "chat-db")
                     .fallbackToDestructiveMigration() // Recria a BD (destruindo os dados) quando a versão muda
-                    .allowMainThreadQueries()
+                    //.allowMainThreadQueries()
                     .build();
         }
         return INSTANCE;
